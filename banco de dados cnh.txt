@@ -19,9 +19,9 @@ CONSTRAINT cliente_play PRIMARY KEY(id_cliente)
 );
 
 CREATE TABLE instrutor(
-id_instrutor serial,
+id_instrutor serial unique,
 nomeInstrutor varchar(50),
-cpfInstrutor integer,
+cpfInstrutor varchar(14),
 telefoneInstrutor varchar(20),
 emailInstrutor varchar(50),
 
