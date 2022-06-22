@@ -21,7 +21,7 @@ public class ConexaoDAO {
     public static void ConectDB() {
         try {
             //dados para conectar o banco de dados Postgree
-            String dan = "Projeto_Cnh";// nome do banco de dados (igual ao criado no Postgree
+            String dan = "atividade2";// nome do banco de dados (igual ao criado no Postgree
             String user = "postgres"; // nome de usuario 
             String senha = "postdba"; // senha do usuario 
 
