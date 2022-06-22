@@ -16,20 +16,20 @@ telefone integer,
 	
 CONSTRAINT cliente_play PRIMARY KEY(id_cliente)
 
-)
+);
 
 CREATE TABLE instrutor(
 id_instrutor serial,
 nomeInstrutor varchar(50),
 cpfInstrutor integer,
-telefoneInstrutor String,
+telefoneInstrutor text,
 emailInstrutor varchar(50),
 
 
 
 CONSTRAINT instrutor_play PRIMARY KEY(id_instrutor)
 
-)
+);
 
 CREATE TABLE veiculo(
 
@@ -41,7 +41,7 @@ tipo varchar (50),
 
 CONSTRAINT veiculo_play PRIMARY KEY(placa)
 
-)
+);
 
 CREATE TABLE veiculoInstrutor(
 id_instrutor int,
@@ -49,7 +49,6 @@ placa varchar (7),
 
 CONSTRAINT veiculoInstrutor_id_instrutor_fkey FOREIGN KEY (id_instrutor) REFERENCES instrutor (id_instrutor),
 
-CONSTRAINT veiculoInstrutor_placa_fkey FOREIGN KEY (placa) REFERENCES veiculo (placa),
+CONSTRAINT veiculoInstrutor_placa_fkey FOREIGN KEY (placa) REFERENCES veiculo (placa)
 
-
-)
+);
