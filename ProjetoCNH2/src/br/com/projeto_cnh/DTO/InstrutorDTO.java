@@ -11,7 +11,7 @@ package br.com.projeto_cnh.DTO;
  */
 public class InstrutorDTO {
     private int id_instrutor;
-    private String nomeInstrutor, telefoneInstutor, cpfInstrutor, emailInstrutor;
+    private String nomeInstrutor, telefoneInstrutor, cpfInstrutor, emailInstrutor;
 
     public int getId_instrutor() {
         return id_instrutor;
@@ -30,11 +30,11 @@ public class InstrutorDTO {
     }
 
     public String getTelefoneInstutor() {
-        return telefoneInstutor;
+        return telefoneInstrutor;
     }
 
     public void setTelefoneInstutor(String telefoneInstutor) {
-        this.telefoneInstutor = telefoneInstutor;
+        this.telefoneInstrutor = telefoneInstutor;
     }
 
     public String getCpfInstrutor() {
