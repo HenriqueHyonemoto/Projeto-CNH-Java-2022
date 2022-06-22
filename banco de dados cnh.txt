@@ -1,0 +1,22 @@
+CREATE TABLE cliente(
+id_cliente serial,
+nome varchar(50),
+rua varchar(50),
+numero integer,
+bairro varchar(50),
+cidade varchar(50),
+estado varchar(2),
+cep varchar(9),
+cpf varchar(14)unique,
+rg varchar(15),
+tipoCnh varchar(3),
+tipoCnhAtual varchar(6),
+idade integer,
+telefone integer,
+	
+CONSTRAINT cliente_play PRIMARY KEY(id_cliente)
+
+)
+
+
+select * from cliente
