@@ -5,17 +5,41 @@
  */
 package br.com.projeto_cnh.VIEW;
 
+import br.com.projeto_cnh.CTR.VeiculoCTR;
+import br.com.projeto_cnh.DTO.VeiculoDTO;
+import br.com.projeto_cnh.CTR.InstrutorCTR;
+import br.com.projeto_cnh.DTO.InstrutorDTO;
+import java.awt.Dimension;
+import javax.swing.JOptionPane;
 /**
  *
  * @author aluno
  */
 public class VeiculoVIEW extends javax.swing.JInternalFrame {
-
+    VeiculoCTR veiculoCTR = new VeiculoCTR();
+    VeiculoDTO veiculoDTO = new VeiculoDTO();
+    
+    InstrutorDTO instrutorDTO = new InstrutorDTO();
+    InstrutorCTR instrutorCTR = new InstrutorCTR();
+    
     /**
      * Creates new form VeiculoVIEW
      */
     public VeiculoVIEW() {
         initComponents();
+    }
+    
+    public void setPosicao() {
+        Dimension d = this.getDesktopPane().getSize();
+        this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
+    }
+    
+    private void gravar(){
+        JOptionPane.showMessageDialog(null, this.veiculoCTR.inserirVeiculo(veiculoDTO, instrutorDTO));
+    }
+    
+    private void excluir(){
+        JOptionPane.showMessageDialog(null, this.veiculoCTR.excluirVeiculo(veiculoDTO));
     }
 
     /**
