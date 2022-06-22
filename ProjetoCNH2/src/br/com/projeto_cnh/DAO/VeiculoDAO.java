@@ -21,10 +21,34 @@ public class VeiculoDAO {
     
     public ResultSet rs = null;
     Statement stmt = null;
+    Statement stml = null;
     
     public boolean inserirVeiculo(VeiculoDTO veiculoDTO, InstrutorDTO instrutorDTO){
         try {
+            ConexaoDAO.ConectDB();
             
+            stmt = ConexaoDAO.con.createStatement();
+            stml = ConexaoDAO.con.createStatement();
+            
+            String comandoVeiculo = "INSERT INTO veiculo (placa, modelo, tipo) "
+                    + "VALUES ("
+                    + "'" + veiculoDTO.getPlaca() + "'"
+                    + "'" + veiculoDTO.getModelo() + "'"
+                    + "'" + veiculoDTO.getTipo() + "')";
+            
+            stmt.execute(comandoVeiculo);
+            
+            
+            String comandoInstrutorVeiculo = "INSERT INTO veiculoInstrutor (id_instrutor, "
+                    + "placa) VALUES ("
+                    + "" + instrutorDTO.getId_instrutor() + ","
+                    + "'" + veiculoDTO.getPlaca() + "')";
+            
+            stml.execute(comandoInstrutorVeiculo);
+            
+            ConexaoDAO.con.commit();
+            stmt.close();
+            stml.close();
             
             return true;
         } catch(Exception err){
@@ -35,8 +59,24 @@ public class VeiculoDAO {
         }
     }
     
-    public boolean excluirVeiculo(VeiculoDTO veiculoDTO, InstrutorDTO instrutorDTO){
+    public boolean excluirVeiculo(VeiculoDTO veiculoDTO){
         try {
+            ConexaoDAO.ConectDB();
+            
+            stmt = ConexaoDAO.con.createStatement();
+            stml = ConexaoDAO.con.createStatement();
+            
+            String comandoVeiculo = "DELETE FROM veiculo WHERE placa = '" + veiculoDTO.getPlaca() + "'"; 
+            stmt.execute(comandoVeiculo);
+            
+            String comandoVeiculoInstrutor = "DELETE FROM veiculoInstrutor WHERE placa = '" + veiculoDTO.getPlaca() + "'";
+            stml.execute(comandoVeiculoInstrutor);
+            
+            ConexaoDAO.con.commit();
+            
+            stmt.close();
+            stml.close();
+            
             return true;
         } catch(Exception err){
             System.out.println("Erro VeiculoDAO.excluirVeiculo: " + err.getMessage());
@@ -46,20 +86,27 @@ public class VeiculoDAO {
         }
     }
     
-    public boolean alterarVeiculo(VeiculoDTO veiculoDTO){
+    public ResultSet consultarVeiculo(VeiculoDTO veiculoDTO, int opcao){
         try {
-            return true;
-        } catch(Exception err){
-            System.out.println("Erro VeiculoDAO.alterarVeiculo: " + err.getMessage());
-            return false;
-        } finally {
             ConexaoDAO.ConectDB();
-        }
-    }
-    
-    public ResultSet consultarVeiculo(VeiculoDTO veiculoDTO, InstrutorDTO instrutorDTO){
-        try {
             
+            stmt = ConexaoDAO.con.createStatement();
+            
+            String comando = "";
+            
+            switch(opcao){
+                case 1:
+                    comando = "SELECT v.* FROM veiculo v";
+                    break;
+                case 2:
+                    comando = "SELECT v.* FROM veiculo v WHERE "
+                            + "v.placa like '" + veiculoDTO.getPlaca() + "%' OR "
+                            + "v.modelo like '" + veiculoDTO.getModelo() + "%' OR "
+                            + "v.tipo like '" + veiculoDTO.getTipo() + "%'";
+                    break;
+            }
+            
+            rs = stmt.executeQuery(comando);
             
             return rs;
         } catch(Exception err){
