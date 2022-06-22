@@ -27,7 +27,7 @@ public class ClienteDAO {
 
             //
             String comando = "Insert into cliente (nome, rua, numero, "
-                    + "bairro, cidade, estado, cep, cpf, idade, tipoCnh, tipoCnhAtual, telefone, rg) values ( " // abre a insercao de valores
+                    + "bairro, cidade, estado, cep, cpf, telefone, idade, tipoCnh, tipoCnhAtual, rg) values ( " // abre a insercao de valores
                     + "'" + clienteDTO.getNome() + "', " // a primeira parte  --> "'" <-- é para abrir uma ' e logo no final --> "'," <-- para ser exibido para a DB dessa maneira --> 'nome', 'logradouro',
                     + "'" + clienteDTO.getRua() + "', "
                     + clienteDTO.getNumero() + ", " // variavel do tipo inteiro, nao se utiliza --> "'"<--
@@ -36,12 +36,11 @@ public class ClienteDAO {
                     + "'" + clienteDTO.getEstado() + "', "
                     + "'" + clienteDTO.getCep() + "', "
                     + "'" + clienteDTO.getCpf() + "', "
-                    
+                    + "'" + clienteDTO.getTelefone() + "', "
+                            
                     + clienteDTO.getIdade() + ", "
                     + "'" + clienteDTO.getTipoCnh() + "', "
                     + "'" + clienteDTO.getTipoCnhAtual() + "', "
-                    + clienteDTO.getTelefone() + ", "
-                    
                     + "'" + clienteDTO.getRg() + "') "; // para fechar a insercao que foi aberta na linha 35
 
             stmt.execute(comando.toUpperCase()); //Executa o comando SQL no banco de dados

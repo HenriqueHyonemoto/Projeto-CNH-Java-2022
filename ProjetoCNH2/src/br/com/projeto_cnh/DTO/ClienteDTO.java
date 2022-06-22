@@ -11,8 +11,8 @@ package br.com.projeto_cnh.DTO;
  */
 public class ClienteDTO {
 
-    String nome, estado, bairro, rua, tipoCnh,tipoCnhAtual, cidade, cpf, rg, cep;
-    int telefone, idade, numero,  id_cliente;
+    String nome, estado, bairro, rua, tipoCnh, tipoCnhAtual, cidade, cpf, rg, cep, telefone;
+    int idade, numero, id_cliente;
 
     public int getId_cliente() {
         return id_cliente;
@@ -21,6 +21,7 @@ public class ClienteDTO {
     public void setId_cliente(int id_cliente) {
         this.id_cliente = id_cliente;
     }
+
     public String getNome() {
         return nome;
     }
@@ -68,11 +69,10 @@ public class ClienteDTO {
     public void setTipoCnhAtual(String tipoCnhAtual) {
         this.tipoCnhAtual = tipoCnhAtual;
     }
-    
+
     public String getCidade() {
         return cidade;
     }
-    
 
     public void setCidade(String cidade) {
         this.cidade = cidade;
@@ -102,20 +102,18 @@ public class ClienteDTO {
         this.cep = cep;
     }
 
-    
-
-    public int getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(int telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 
     public int getIdade() {
         return idade;
     }
-   
+
     public void setIdade(int idade) {
         this.idade = idade;
     }
