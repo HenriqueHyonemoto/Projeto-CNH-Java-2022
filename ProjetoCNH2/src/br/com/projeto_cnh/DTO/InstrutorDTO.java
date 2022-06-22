@@ -29,11 +29,11 @@ public class InstrutorDTO {
         this.nomeInstrutor = nomeInstrutor;
     }
 
-    public String getTelefoneInstutor() {
+    public String getTelefoneInstrutor() {
         return telefoneInstrutor;
     }
 
-    public void setTelefoneInstutor(String telefoneInstutor) {
+    public void setTelefoneInstrutor(String telefoneInstutor) {
         this.telefoneInstrutor = telefoneInstutor;
     }
 
