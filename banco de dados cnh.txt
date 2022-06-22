@@ -12,7 +12,7 @@ rg varchar(15),
 tipoCnh varchar(3),
 tipoCnhAtual varchar(6),
 idade integer,
-telefone integer,
+telefone varchar(20),
 	
 CONSTRAINT cliente_play PRIMARY KEY(id_cliente)
 
@@ -22,13 +22,10 @@ CREATE TABLE instrutor(
 id_instrutor serial,
 nomeInstrutor varchar(50),
 cpfInstrutor integer,
-telefoneInstrutor text,
+telefoneInstrutor varchar(20),
 emailInstrutor varchar(50),
 
-
-
 CONSTRAINT instrutor_play PRIMARY KEY(id_instrutor)
-
 );
 
 CREATE TABLE veiculo(
