@@ -7,7 +7,6 @@ package br.com.projeto_cnh.DAO;
 
 import br.com.projeto_cnh.DTO.VeiculoDTO;
 import br.com.projeto_cnh.DTO.InstrutorDTO;
-import br.com.projeto_cnh.DAO.ConexaoDAO;
 import java.sql.*;
 /**
  *
