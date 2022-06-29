@@ -70,15 +70,54 @@ public class VeiculoVIEW extends javax.swing.JInternalFrame {
         }
     }
     
-    private void consultar(){
+    private void consultarVeiculo(){
         try{
-            this.modeloJtlVeiculo
-           if(this.inputPesquisaVeiculo){
+           this.modeloJtlVeiculo.setNumRows(0);
+           this.veiculoDTO.setPlaca(this.inputPesquisaVeiculo.getText());
+           if(this.inputPesquisaVeiculo.getText() == null || this.inputPesquisaVeiculo.getText() == ""){
+               rs = this.veiculoCTR.consultarVeiculo(veiculoDTO, 1);
            } else {
+               rs = this.veiculoCTR.consultarVeiculo(veiculoDTO, 2);
+           }
+           
+           while(rs.next()){
+               this.modeloJtlVeiculo.addRow(new Object[]{
+                   rs.getString("placa"),
+                   rs.getString("modelo"),
+                   rs.getString("tipo")
+               });
            }
         } catch(Exception err){
-            System.out.println("Erro VeiculoVIEW.consultar(): " + err.getMessage());
+            System.out.println("Erro VeiculoVIEW.consultarVeiculo(): " + err.getMessage());
             JOptionPane.showMessageDialog(null, "Erro ao consultar");
+        } finally {
+            this.veiculoCTR.CloseDB();
+        }
+    }
+    
+    private void consultarInstrutor(){
+        try {
+            this.modeloJtlInstrutor.setNumRows(0);
+            this.instrutorDTO.setNomeInstrutor(this.inputPesquisaInstrutor.getText());
+            
+            if(this.inputPesquisaInstrutor.getText() == null || this.inputPesquisaInstrutor.getText() == ""){
+                rs = this.instrutorCTR.consultarInstrutor(instrutorDTO, 3);
+            } else {
+                rs = this.instrutorCTR.consultarInstrutor(instrutorDTO, 1);
+            }
+            
+            while(rs.next()){
+                this.modeloJtlInstrutor.addRow(new Object[]{
+                    rs.getString("id_instrutor"),
+                    rs.getString("nomeinstrutor"),
+                });
+            }
+            
+        } catch(Exception err){
+            System.out.println("Erro VeiculoVIEW.consultarInstrutor(): " + err.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao consultar");
+        } finally {
+            this.instrutorCTR.CloseDB();
         }
     }
 

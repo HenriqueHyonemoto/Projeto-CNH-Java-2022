@@ -55,6 +55,14 @@ public class InstrutorCTR {
         }
     }
     
+    public ResultSet consultarInstrutor(InstrutorDTO instrutorDTO, int opcao){
+            ResultSet rs = null;
+        
+            rs = instrutorDAO.consultarInstrutor(instrutorDTO, opcao);
+        
+            return rs;
+    }
+    
     public String excluirCliente(InstrutorDTO instrutorDTO) {
         try {
             if (instrutorDAO.excluirCliente(instrutorDTO)) {
