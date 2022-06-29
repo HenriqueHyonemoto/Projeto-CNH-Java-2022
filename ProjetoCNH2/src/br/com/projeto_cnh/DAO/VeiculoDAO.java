@@ -54,7 +54,7 @@ public class VeiculoDAO {
             System.out.println("Erro VeiculoDAO.inserirVeiculo: " + err.getMessage());
             return false;
         } finally {
-            ConexaoDAO.ConectDB();
+            ConexaoDAO.CloseDB();
         }
     }
     
@@ -81,7 +81,7 @@ public class VeiculoDAO {
             System.out.println("Erro VeiculoDAO.excluirVeiculo: " + err.getMessage());
             return false;
         } finally {
-            ConexaoDAO.ConectDB();
+            ConexaoDAO.CloseDB();
         }
     }
     
