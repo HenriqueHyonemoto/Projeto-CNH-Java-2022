@@ -99,9 +99,7 @@ public class VeiculoDAO {
                     break;
                 case 2:
                     comando = "SELECT v.* FROM veiculo v WHERE "
-                            + "v.placa like '" + veiculoDTO.getPlaca() + "%' OR "
-                            + "v.modelo like '" + veiculoDTO.getModelo() + "%' OR "
-                            + "v.tipo like '" + veiculoDTO.getTipo() + "%'";
+                            + "v.placa like '" + veiculoDTO.getPlaca() + "%'";
                     break;
             }
             
