@@ -24,9 +24,9 @@ public class VeiculoVIEW extends javax.swing.JInternalFrame {
     InstrutorDTO instrutorDTO = new InstrutorDTO();
     InstrutorCTR instrutorCTR = new InstrutorCTR();
     
-    int gravar_alterar;
     ResultSet rs;
     DefaultTableModel modeloJtlInstrutor;
+    DefaultTableModel modeloJtlVeiculo;
     /**
      * Creates new form VeiculoVIEW
      */
@@ -34,6 +34,7 @@ public class VeiculoVIEW extends javax.swing.JInternalFrame {
         initComponents();
         
         modeloJtlInstrutor = (DefaultTableModel) this.jtl_instrutor.getModel();
+        modeloJtlVeiculo = (DefaultTableModel) this.jtl_veiculo.getModel();
     }
     
     public void setPosicao() {
@@ -42,16 +43,43 @@ public class VeiculoVIEW extends javax.swing.JInternalFrame {
     }
     
     private void gravar(){
-        try {
-            
+        try{
+            veiculoDTO.setModelo(this.inputModelo.getText());
+            veiculoDTO.setPlaca(this.inputPlaca.getText());
+            veiculoDTO.setTipo(this.inputTipo.getSelectedItem().toString());
+            instrutorDTO.setId_instrutor(Integer.parseInt(String.valueOf(
+                this.jtl_instrutor.getValueAt(this.jtl_instrutor.getSelectedRow(), 0)
+            )));
+        
+            JOptionPane.showMessageDialog(null, this.veiculoCTR.inserirVeiculo(veiculoDTO, instrutorDTO));
         } catch(Exception err){
-            System.out.println("Erro ");
+            System.out.println("Erro VeiculoVIEW.gravar(): " + err.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao gravar");
         }
-        JOptionPane.showMessageDialog(null, this.veiculoCTR.inserirVeiculo(veiculoDTO, instrutorDTO));
     }
     
     private void excluir(){
-        JOptionPane.showMessageDialog(null, this.veiculoCTR.excluirVeiculo(veiculoDTO));
+        try{
+            this.veiculoDTO.setPlaca(String.valueOf(
+            this.jtl_veiculo.getValueAt(this.jtl_veiculo.getSelectedRow(), 0)
+                    ));
+            JOptionPane.showMessageDialog(null, this.veiculoCTR.excluirVeiculo(veiculoDTO));
+        } catch(Exception err){
+            System.out.println("Erro VeiculoVIEW.excluir(): " + err.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao excluir");
+        }
+    }
+    
+    private void consultar(){
+        try{
+            this.modeloJtlVeiculo
+           if(this.inputPesquisaVeiculo){
+           } else {
+           }
+        } catch(Exception err){
+            System.out.println("Erro VeiculoVIEW.consultar(): " + err.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao consultar");
+        }
     }
 
     /**
@@ -69,6 +97,9 @@ public class VeiculoVIEW extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtl_instrutor = new javax.swing.JTable();
         inputPesquisaInstrutor = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jtl_veiculo = new javax.swing.JTable();
+        inputPesquisaVeiculo = new javax.swing.JTextField();
 
         inputPlaca.setText("jTextField1");
 
@@ -91,24 +122,47 @@ public class VeiculoVIEW extends javax.swing.JInternalFrame {
 
         inputPesquisaInstrutor.setText("jTextField1");
 
+        jtl_veiculo.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jtl_veiculo);
+
+        inputPesquisaVeiculo.setText("jTextField1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(84, 84, 84)
-                .addComponent(inputPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
-                .addComponent(inputModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(131, 131, 131)
-                .addComponent(inputTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(92, 92, 92))
             .addGroup(layout.createSequentialGroup()
-                .addGap(148, 148, 148)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(inputPesquisaInstrutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(84, 84, 84)
+                        .addComponent(inputPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(110, 110, 110)
+                        .addComponent(inputModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(131, 131, 131)
+                        .addComponent(inputTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(148, 148, 148)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(inputPesquisaInstrutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(inputPesquisaVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(88, 88, 88)))))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,11 +172,18 @@ public class VeiculoVIEW extends javax.swing.JInternalFrame {
                     .addComponent(inputModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(inputTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(inputPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(62, 62, 62)
-                .addComponent(inputPesquisaInstrutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(146, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(62, 62, 62)
+                        .addComponent(inputPesquisaInstrutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(inputPesquisaVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         pack();
@@ -132,9 +193,12 @@ public class VeiculoVIEW extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField inputModelo;
     private javax.swing.JTextField inputPesquisaInstrutor;
+    private javax.swing.JTextField inputPesquisaVeiculo;
     private javax.swing.JTextField inputPlaca;
     private javax.swing.JComboBox<String> inputTipo;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jtl_instrutor;
+    private javax.swing.JTable jtl_veiculo;
     // End of variables declaration//GEN-END:variables
 }
