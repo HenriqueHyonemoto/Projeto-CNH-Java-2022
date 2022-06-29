@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+
 import br.com.projeto_cnh.DTO.ClienteDTO;
 import br.com.projeto_cnh.CTR.ClienteCTR;
 
@@ -19,10 +20,10 @@ import br.com.projeto_cnh.CTR.ClienteCTR;
  * @author Aluno
  */
 public class ClienteVIEW extends javax.swing.JInternalFrame {
-
+    
     ClienteDTO clienteDTO = new ClienteDTO();
     ClienteCTR clienteCTR = new ClienteCTR();
-
+    
     int gravar_alterar; // variavel para saber se esta alterando ou incluindo
     ResultSet rs;// usada para preenchimento de tablea e campos
     DefaultTableModel modelo_jtl_consultar_cliente; // variavel para guardar o modelo da tabela
@@ -31,185 +32,217 @@ public class ClienteVIEW extends javax.swing.JInternalFrame {
      * Creates new form ClienteVIEW
      */
     public ClienteVIEW() {
-
+        
         initComponents();
-
+        
         liberaCampos(false); // chama todos os metodos liberacampos
         liberaBotoes(true, false, false, false, true); // chama o metodo liberaBotoes
-        modelo_jtl_consultar_cliente = (DefaultTableModel) jtl_consultar_cliente.getModel();
+        modelo_jtl_consultar_cliente =  (DefaultTableModel) jtl_consultar_cliente.getModel();
     }
-
-    public void setPositon() {
+    
+    public void setPositon(){
         Dimension d = this.getDesktopPane().getSize();
-        this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
-
+        this.setLocation((d.width - this.getSize().width)/2, (d.height - this.getSize().height)/2);
+             
     }
-
-    public void gravar() {
-        try {
-            if ((Integer.parseInt(idade.getText())) < 18) {
-
-                JOptionPane.showMessageDialog(null, "Você não possui idade o suficiente");
-
-            } else if (tipoCnh.getSelectedItem().toString() == "C" && tipoCnhAtual.getSelectedItem().toString() != "B") {
-                JOptionPane.showMessageDialog(null, "Você precisa ser habilitado na categoria B para tirar a categoria C!");
-            } else if (tipoCnh.getSelectedItem().toString() == "D" && Integer.parseInt(idade.getText()) < 21) {
-                JOptionPane.showMessageDialog(null, "Você precisa ter 21 anos ou mais para a categoria D!");
-            } else if (tipoCnh.getSelectedItem().toString() == "D" && tipoCnhAtual.getSelectedItem().toString() != "B" && tipoCnhAtual.getSelectedItem().toString() != "C") {
-                JOptionPane.showMessageDialog(null, "Você precisa possuir a categoria B ou C para tirar a categoria D!");
-            } else if (tipoCnh.getSelectedItem().toString() == "E" && Integer.parseInt(idade.getText()) < 21) {
-                JOptionPane.showMessageDialog(null, "Você precisa ter 21 anos ou mais para a categoria E");
-            } else if (tipoCnh.getSelectedItem().toString() == "E" && tipoCnhAtual.getSelectedItem().toString() != "D" && tipoCnhAtual.getSelectedItem().toString() != "C") {
-                JOptionPane.showMessageDialog(null, "Você precisa possuir a categoria C ou D para tirar a categoria D!");
-            } else {
-                clienteDTO.setNome(nome.getText());
-                clienteDTO.setRua(rua.getText());
-                clienteDTO.setNumero(Integer.parseInt(numero.getText())); //valor inteiro
-                clienteDTO.setTelefone(telefone.getText());//valor inteiro
-                clienteDTO.setIdade(Integer.parseInt(idade.getText()));
-                clienteDTO.setBairro(bairro.getText());
-                clienteDTO.setCidade(cidade.getText());
-                clienteDTO.setEstado(estado.getSelectedItem().toString());
-                clienteDTO.setTipoCnh(tipoCnh.getSelectedItem().toString());
-                clienteDTO.setTipoCnhAtual(tipoCnhAtual.getSelectedItem().toString());// caixa de seleção
-                clienteDTO.setCep(cep.getText());
-                clienteDTO.setCpf(cpf.getText());
-                clienteDTO.setRg(rg.getText());
-
-                JOptionPane.showMessageDialog(null,
-                        clienteCTR.inserirCliente(clienteDTO));
-            }
-        } catch (Exception e) {
-            System.out.println("Erro ao Gravar" + e.getMessage());
+    
+    public void gravar(){
+    try{
+        if((Integer.parseInt(idade.getText()))<18){
+        
+            JOptionPane.showMessageDialog(null, "Você não possui idade o suficiente");  
+            
+        }else
+            
+        if(tipoCnh.getSelectedItem().toString() == "C" && tipoCnhAtual.getSelectedItem().toString() != "B"){
+            JOptionPane.showMessageDialog(null, "Você precisa ser habilitado na categoria B para tirar a categoria C!");      
+        }else
+        
+        if(tipoCnh.getSelectedItem().toString() == "D" && Integer.parseInt(idade.getText()) < 21){
+            JOptionPane.showMessageDialog(null, "Você precisa ter 21 anos ou mais para a categoria D!");      
+        }else
+        if(tipoCnh.getSelectedItem().toString() == "D" && tipoCnhAtual.getSelectedItem().toString() != "B" && tipoCnhAtual.getSelectedItem().toString() != "C"){
+            JOptionPane.showMessageDialog(null, "Você precisa possuir a categoria B ou C para tirar a categoria D!");      
+        }else
+        
+        if(tipoCnh.getSelectedItem().toString() == "E" && Integer.parseInt(idade.getText()) < 21){
+            JOptionPane.showMessageDialog(null, "Você precisa ter 21 anos ou mais para a categoria e");      
+        }else
+            
+        if(tipoCnh.getSelectedItem().toString() == "E" && tipoCnhAtual.getSelectedItem().toString() != "D" && tipoCnhAtual.getSelectedItem().toString() != "C"){
+        JOptionPane.showMessageDialog(null, "Você precisa possuir a categoria C ou D para tirar a categoria D!");      
         }
-    } // chamar metodo
-
-    private void liberaCampos(boolean a) { //checar erro
-        nome.setEnabled(a);
-        rua.setEnabled(a);
-        numero.setEnabled(a);
-        bairro.setEnabled(a);
-        cidade.setEnabled(a);
-        estado.setEnabled(a);
-        cep.setEnabled(a);
-        cpf.setEnabled(a);
-        rg.setEnabled(a);
-
-        idade.setEnabled(a);
-        tipoCnh.setEnabled(a);
-        tipoCnhAtual.setEnabled(a);
-        telefone.setEnabled(a);
-
+        else{
+        clienteDTO.setNome(nome.getText());
+        clienteDTO.setRua(rua.getText());
+        clienteDTO.setNumero(Integer.parseInt(numero.getText())); //valor inteiro
+        clienteDTO.setTelefone(Integer.parseInt(telefone.getText()));//valor inteiro
+        clienteDTO.setIdade(Integer.parseInt(idade.getText()));
+        clienteDTO.setBairro(bairro.getText());
+        clienteDTO.setCidade(cidade.getText());
+        clienteDTO.setEstado(estado.getSelectedItem().toString());
+        clienteDTO.setTipoCnh(tipoCnh.getSelectedItem().toString());
+        clienteDTO.setTipoCnhAtual(tipoCnhAtual.getSelectedItem().toString());// caixa de seleção
+        clienteDTO.setCep(cep.getText());
+        clienteDTO.setCpf(cpf.getText());
+        clienteDTO.setRg(rg.getText());
+  
+        
+        JOptionPane.showMessageDialog(null,
+                    clienteCTR.inserirCliente(clienteDTO));
+        }    
+        
+        
+        
     }
-
-    private void limpaCampos() {
-        nome.setText(null);
-        rua.setText(null);
-        numero.setText(null);
-        bairro.setText(null);
-        cidade.setText(null);
-        //estado nao vai pois é uma caixa de selecao
-        cep.setText(null);
-        cpf.setText(null);
-        rg.setText(null);
-        //tipoCnh nao vai pois é uma caixa de selecao
-        telefone.setText(null);
-        idade.setText(null);
-
+    catch(Exception e){
+            System.out.println("Erro ao Gravar" +e.getMessage());
     }
+} // chamar metodo
 
-    private void liberaBotoes(boolean a, boolean b, boolean c, boolean d, boolean e) { //checar erro
-        btnNovo.setEnabled(a);
-        btnSalvar.setEnabled(b);
-        btnCancelar.setEnabled(c);
-        btnExcluir.setEnabled(d);
-        btnSair.setEnabled(e);
-    }
+    private void liberaCampos(boolean a){ //checar erro
+    nome.setEnabled(a);
+    rua.setEnabled(a);
+    numero.setEnabled(a);
+    bairro.setEnabled(a);
+    cidade.setEnabled(a);
+    estado.setEnabled(a);
+    cep.setEnabled(a);
+    cpf.setEnabled(a);
+    rg.setEnabled(a);
+    
+    idade.setEnabled(a);
+    tipoCnh.setEnabled(a);
+    tipoCnhAtual.setEnabled(a);
+    telefone.setEnabled(a);        
+    
+}
 
-    private void preenchecampos(int id_cliente) {
-        try {
-            clienteDTO.setId_cliente(id_cliente);
-            rs = clienteCTR.consultarCliente(clienteDTO, 2);
-            if (rs.next()) {
-                limpaCampos();
+private void limpaCampos(){
+    nome.setText(null); 
+    rua.setText(null);
+    numero.setText(null);
+    bairro.setText(null);
+    cidade.setText(null);
+    //estado nao vai pois é uma caixa de selecao
+    cep.setText(null);
+    cpf.setText(null);
+    rg.setText(null);
+    //tipoCnh nao vai pois é uma caixa de selecao
+    telefone.setText(null);
+    idade.setText(null);
+    
+    
+    
+}
 
-                nome.setText(rs.getString("nome"));
-                rua.setText(rs.getString("rua"));
-                numero.setText(rs.getString("numero"));
-                bairro.setText(rs.getString("bairro"));
-                cidade.setText(rs.getString("cidade"));
-                estado.setSelectedItem(rs.getString("estado"));
-                cep.setText(rs.getString("cep"));
-                cpf.setText(rs.getString("cpf"));
-                rg.setText(rs.getString("rg"));
-                telefone.setText(rs.getString("telefone"));
-                
-                idade.setText(rs.getString("idade"));
-                tipoCnh.setSelectedItem(rs.getString("tipoCnh"));
-                tipoCnhAtual.setSelectedItem(rs.getString("tipoCnhAtual"));
+private void liberaBotoes(boolean a, boolean b, boolean c, boolean d, boolean e){ //checar erro
+    btnNovo.setEnabled(a);
+    btnSalvar.setEnabled(b);
+    btnCancelar.setEnabled(c);
+    btnExcluir.setEnabled(d);
+    btnSair.setEnabled(e);
+}
 
-                gravar_alterar = 2;
-                liberaCampos(true);
-            }
-        } catch (Exception e) {
-            System.out.println("erro " + e.getMessage());
+private void preenchecampos(int id_cliente){
+    try{
+        clienteDTO.setId_cliente(id_cliente);
+        rs = clienteCTR.consultarCliente(clienteDTO, 2);
+        if(rs.next()){
+            limpaCampos();
+        
+        nome.setText(rs.getString("nome"));
+        rua.setText(rs.getString("rua"));
+        numero.setText(rs.getString("numero"));
+        bairro.setText(rs.getString("bairro"));
+        cidade.setText(rs.getString("cidade"));
+        estado.setSelectedItem(rs.getString("estado"));
+        cep.setText(rs.getString("cep"));
+        cpf.setText(rs.getString("cpf"));
+        rg.setText(rs.getString("rg"));
+        
+        telefone.setText(rs.getString("telefone"));
+        idade.setText(rs.getString("idade"));
+        tipoCnh.setSelectedItem(rs.getString("tipoCnh"));
+        tipoCnhAtual.setSelectedItem(rs.getString("tipoCnhAtual"));
+        
+        
+        
+        
+        
+        gravar_alterar = 2;
+        liberaCampos(true);
+        
         }
-
+        
     }
+    catch (Exception e){
+        System.out.println("erro "+e.getMessage());
+    }
+    
+   
+    
+}
+ private void alterar(){
+     try{
+     clienteDTO.setNome(nome.getText());    
+     clienteDTO.setRua(rua.getText());    
+     clienteDTO.setNumero(Integer.parseInt(numero.getText()));    
+     clienteDTO.setBairro(bairro.getText());    
+     clienteDTO.setCidade(cidade.getText());    
+     clienteDTO.setEstado(estado.getSelectedItem().toString());    
+     clienteDTO.setCep(cep.getText());    
+     clienteDTO.setCpf(cpf.getText());    
+     clienteDTO.setRg(rg.getText());    
+     
+     clienteDTO.setIdade(Integer.parseInt(idade.getText())); 
+     clienteDTO.setTelefone(Integer.parseInt(telefone.getText()));
+     clienteDTO.setTipoCnh(tipoCnh.getSelectedItem().toString()); 
+     clienteDTO.setTipoCnhAtual(tipoCnhAtual.getSelectedItem().toString()); 
+     
+    
+     JOptionPane.showMessageDialog(null,
+             clienteCTR.alterarCLiente(clienteDTO)
+             );
+         
 
-    private void alterar() {
-        try {
-            clienteDTO.setNome(nome.getText());
-            clienteDTO.setRua(rua.getText());
-            clienteDTO.setNumero(Integer.parseInt(numero.getText()));
-            clienteDTO.setBairro(bairro.getText());
-            clienteDTO.setCidade(cidade.getText());
-            clienteDTO.setEstado(estado.getSelectedItem().toString());
-            clienteDTO.setCep(cep.getText());
-            clienteDTO.setCpf(cpf.getText());
-            clienteDTO.setRg(rg.getText());
-            clienteDTO.setTelefone(telefone.getText());
-
-            clienteDTO.setIdade(Integer.parseInt(idade.getText()));
-            clienteDTO.setTipoCnh(tipoCnh.getSelectedItem().toString());
-            clienteDTO.setTipoCnhAtual(tipoCnhAtual.getSelectedItem().toString());
-
-            JOptionPane.showMessageDialog(null,
-                    clienteCTR.alterarCLiente(clienteDTO)
-            );
-
-        } catch (Exception e) {
-            clienteCTR.alterarCLiente(clienteDTO);
+       } 
+     catch (Exception e){
+         clienteCTR.alterarCLiente(clienteDTO);
+     }
+    }
+ 
+ private void excluir(){
+     if (JOptionPane.showConfirmDialog(null, "deseja realmente excluir o cliente?", "Aviso", 
+             JOptionPane.YES_NO_OPTION)== JOptionPane.YES_OPTION){
+         JOptionPane.showMessageDialog(null,
+                 clienteCTR.excluirCliente(clienteDTO)
+         );
+     }
+ }
+ 
+ private void preencheTabela (String nome){
+    try{
+    modelo_jtl_consultar_cliente.setNumRows(0); // limpa linhas
+    clienteDTO.setNome(nome); // enquanto tiver linhas faça
+    rs = clienteCTR.consultarCliente(clienteDTO, 1); // 1 = é a pesquisa
+    while (rs.next()){
+        modelo_jtl_consultar_cliente.addRow(new Object[]{
+            rs.getString("id_cliente"),
+            rs.getString("nome"),
+        });
         }
+        
     }
-
-    private void excluir() {
-        if (JOptionPane.showConfirmDialog(null, "deseja realmente excluir o cliente?", "Aviso",
-                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            JOptionPane.showMessageDialog(null,
-                    clienteCTR.excluirCliente(clienteDTO)
-            );
-        }
+        
+    
+    catch(Exception erTab){
+        System.out.println("Erro SQL: " +erTab);
     }
-
-    private void preencheTabela(String nome) {
-        try {
-            modelo_jtl_consultar_cliente.setNumRows(0); // limpa linhas
-            clienteDTO.setNome(nome); // enquanto tiver linhas faça
-            rs = clienteCTR.consultarCliente(clienteDTO, 1); // 1 = é a pesquisa
-            while (rs.next()) {
-                modelo_jtl_consultar_cliente.addRow(new Object[]{
-                    rs.getString("id_cliente"),
-                    rs.getString("nome"),});
-            }
-
-        } catch (Exception erTab) {
-            System.out.println("Erro SQL: " + erTab);
-        } finally {
-            clienteCTR.CloseDB();
-        }
+    finally{
+    clienteCTR.CloseDB();
     }
-
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -549,40 +582,43 @@ public class ClienteVIEW extends javax.swing.JInternalFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
 
         // TODO add your handling code here:
-        if (gravar_alterar == 1) {
+        if(gravar_alterar==1){
             gravar();
-            gravar_alterar = 0;
-        } else {
-            if (gravar_alterar == 2) {
+            gravar_alterar=0;
+        }else{
+            if(gravar_alterar == 2){
                 alterar();
-                gravar_alterar = 0;
-            } else {
+                gravar_alterar=0;
+            }else{
                 JOptionPane.showMessageDialog(null, "Erro no sistema! ");
             }
-
+            
+            
         }
-
+        
+        
+        
         limpaCampos();
         liberaCampos(false);
-        liberaBotoes(true, false, false, false, true);        // TODO add your handling code here:
+        liberaBotoes(true,false,false,false,true);        // TODO add your handling code here:
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        this.dispose();        // TODO add your handling code here:
+    this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        liberaCampos(true);
-        liberaBotoes(false, true, true, false, true);
-        gravar_alterar = 1;        // TODO add your handling code here:
+    liberaCampos(true);
+    liberaBotoes(false, true, true, false, true);
+    gravar_alterar = 1;        // TODO add your handling code here:
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        excluir();
-        limpaCampos();
-        liberaCampos(false);
-        liberaBotoes(true, false, false, false, true);
-        modelo_jtl_consultar_cliente.setNumRows(0);// TODO add your ha
+    excluir();
+    limpaCampos();
+    liberaCampos(false);
+    liberaBotoes(true, false, false, false, true);
+    modelo_jtl_consultar_cliente.setNumRows(0);// TODO add your ha
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void nomeConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeConsultaActionPerformed
@@ -590,11 +626,11 @@ public class ClienteVIEW extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_nomeConsultaActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        limpaCampos();
-        liberaCampos(false);
-        modelo_jtl_consultar_cliente.setNumRows(0);
-        liberaBotoes(true, false, false, false, true);
-        gravar_alterar = 0;// TODO add your handling code here:        // TODO add your handling code here:
+    limpaCampos();
+    liberaCampos(false);
+    modelo_jtl_consultar_cliente.setNumRows(0);
+    liberaBotoes(true, false, false, false, true);
+    gravar_alterar = 0;// TODO add your handling code here:        // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void cepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cepActionPerformed
@@ -606,14 +642,14 @@ public class ClienteVIEW extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tipoCnhAtualAncestorAdded
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        preencheTabela(nomeConsulta.getText().toUpperCase());         // TODO add your handling code here:
+preencheTabela(nomeConsulta.getText().toUpperCase());         // TODO add your handling code here:
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void jtl_consultar_clienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtl_consultar_clienteMouseClicked
-        preenchecampos(Integer.parseInt(String.valueOf(
-                jtl_consultar_cliente.getValueAt(
-                        jtl_consultar_cliente.getSelectedRow(), 0))));
-        liberaBotoes(false, true, true, true, true);        // TODO add your handling code here:
+preenchecampos(Integer.parseInt(String.valueOf(
+        jtl_consultar_cliente.getValueAt(
+        jtl_consultar_cliente.getSelectedRow(),0 ))));
+    liberaBotoes(false, true, true, true, true);        // TODO add your handling code here:
     }//GEN-LAST:event_jtl_consultar_clienteMouseClicked
 
 
