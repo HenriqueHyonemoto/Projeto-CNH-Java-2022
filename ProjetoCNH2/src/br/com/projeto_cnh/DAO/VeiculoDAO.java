@@ -54,7 +54,7 @@ public class VeiculoDAO {
             System.out.println("Erro VeiculoDAO.inserirVeiculo: " + err.getMessage());
             return false;
         } finally {
-            ConexaoDAO.CloseDB();
+            ConexaoDAO.ConectDB();
         }
     }
     
@@ -81,7 +81,7 @@ public class VeiculoDAO {
             System.out.println("Erro VeiculoDAO.excluirVeiculo: " + err.getMessage());
             return false;
         } finally {
-            ConexaoDAO.CloseDB();
+            ConexaoDAO.ConectDB();
         }
     }
     
@@ -99,7 +99,9 @@ public class VeiculoDAO {
                     break;
                 case 2:
                     comando = "SELECT v.* FROM veiculo v WHERE "
-                            + "v.placa like '" + veiculoDTO.getPlaca() + "%'";
+                            + "v.placa like '" + veiculoDTO.getPlaca() + "%' OR "
+                            + "v.modelo like '" + veiculoDTO.getModelo() + "%' OR "
+                            + "v.tipo like '" + veiculoDTO.getTipo() + "%'";
                     break;
             }
             

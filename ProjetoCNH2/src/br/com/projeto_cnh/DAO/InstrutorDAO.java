@@ -30,8 +30,7 @@ public class InstrutorDAO {
             stmt = ConexaoDAO.con.createStatement();
 
             //
-            String comando = "Insert into cliente (nome, rua, numero, "
-                    + "bairro, cidade, estado, cep, cpf, telefone, idade, tipoCnh, tipoCnhAtual, rg) values ( " // abre a insercao de valores
+            String comando = "Insert into instrutor (nomeInstrutor, cpfInstrutor, emailInstrutor, telefoneInstrutor) values ( " // abre a insercao de valores
                     + "'" + instrutorDTO.getNomeInstrutor() + "', " // a primeira parte  --> "'" <-- é para abrir uma ' e logo no final --> "'," <-- para ser exibido para a DB dessa maneira --> 'nome', 'logradouro',
                     + "'" + instrutorDTO.getCpfInstrutor() + "', "
                     + "'" + instrutorDTO.getEmailInstrutor() + "', "
@@ -54,15 +53,15 @@ public class InstrutorDAO {
             ConexaoDAO.CloseDB(); // chama o metodo da classe conezao para fechar a DB
         }
     }
-    public boolean alterarCliente(InstrutorDTO instrutorDTO){
+    public boolean alterarInstrutor(InstrutorDTO instrutorDTO){
         try{
             ConexaoDAO.ConectDB();
             
             stmt = ConexaoDAO.con.createStatement();// criar statement responsavel por alguma coisa no banco de dados
             
-            String comando = "Update cliente set "
+            String comando = "Update instrutor set "
             + "nomeInstrutor = '" + instrutorDTO.getNomeInstrutor()+"', "
-            + "cpfinstrutor = '" + instrutorDTO.getCpfInstrutor()+"', "
+            + "cpfInstrutor = '" + instrutorDTO.getCpfInstrutor()+"', "
             + "telefoneinstrutor = '" + instrutorDTO.getTelefoneInstrutor()+"', "
             + "emailinstrutor = '" + instrutorDTO.getEmailInstrutor()+"' "           
             + "where id_instrutor = " + instrutorDTO.getId_instrutor();
@@ -76,7 +75,7 @@ public class InstrutorDAO {
         }
         
         catch (Exception e){
-            System.out.println("erro alterar"+e.getMessage());      
+            System.out.println("erro alterar "+e.getMessage());      
             return false;
         } // caso de erro ou nao o banco ira ser fechado
         finally{
@@ -97,7 +96,7 @@ public class InstrutorDAO {
                        comando = " Select i.* "+
                                "from instrutor i "+
                                "where nomeInstrutor like '"+ instrutorDTO.getNomeInstrutor()+ "%' "+
-                               "order by c.nomeInstrutor";
+                               "order by i.nomeInstrutor";
                 break;
                 case 2:
                     comando = " Select i.* "+
@@ -120,12 +119,12 @@ public class InstrutorDAO {
         }
     }
         
-          public boolean excluirCliente(InstrutorDTO instrutorDTO){
+          public boolean excluirInstrutor(InstrutorDTO instrutorDTO){
         try{
             ConexaoDAO.ConectDB();
             
             stmt = ConexaoDAO.con.createStatement();
-            String comando = "Delete from cliente where id_instrutor = "
+            String comando = "Delete from instrutor where id_instrutor = "
                     +instrutorDTO.getId_instrutor();
                     stmt.execute(comando);
                     

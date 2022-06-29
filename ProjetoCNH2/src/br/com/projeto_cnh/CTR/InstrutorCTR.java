@@ -33,7 +33,7 @@ public class InstrutorCTR {
         }
     }
     
-    public ResultSet inserirCliente(InstrutorDTO instrutorDTO, int opcao) {
+    public ResultSet consultarInstrutor(InstrutorDTO instrutorDTO, int opcao) {
         ResultSet rs = null; // É criado um atributo do tipo ResultSet, pois este metodo recebe o resultado de uma consulta
 
         rs = instrutorDAO.consultarInstrutor(instrutorDTO, opcao); // o atributo rs recebe a consulta realizada pelo metodo da classe DAO
@@ -43,7 +43,7 @@ public class InstrutorCTR {
     
     public String alterarInstrutor(InstrutorDTO instrutorDTO) {
         try {
-            if (instrutorDAO.alterarCliente(instrutorDTO)) {
+            if (instrutorDAO.alterarInstrutor(instrutorDTO)) {
                 return "Instrutor alterado com sucesso!";
             } else {
                 return "Erro ao alterar instrutor";
@@ -55,17 +55,9 @@ public class InstrutorCTR {
         }
     }
     
-    public ResultSet consultarInstrutor(InstrutorDTO instrutorDTO, int opcao){
-            ResultSet rs = null;
-        
-            rs = instrutorDAO.consultarInstrutor(instrutorDTO, opcao);
-        
-            return rs;
-    }
-    
-    public String excluirCliente(InstrutorDTO instrutorDTO) {
+    public String excluirInstrutor(InstrutorDTO instrutorDTO) {
         try {
-            if (instrutorDAO.excluirCliente(instrutorDTO)) {
+            if (instrutorDAO.excluirInstrutor(instrutorDTO)) {
                 return "Instrutor Exculido com sucesso! ";
 
             } else {
